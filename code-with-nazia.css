@@ -1,0 +1,110 @@
+:root{
+    --bg-orange: #fd9d3d;
+    --icon-orange-1: #f97a4d;
+    --icon-orange-2: #f5622f;
+    --outline: #737373;
+  }
+  html,body{
+    height:100%;
+    margin:0;
+    background: #fdfaf6;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  }
+  .stage{
+    width:400px;
+    aspect-ratio: 4 / 5;
+    background: linear-gradient(160deg, var(--bg-orange), #fb8a3c);
+    border-radius:28px;
+    display:flex;
+    align-items:flex-end;
+    justify-content:center;
+    padding: 24px;
+    box-sizing:border-box;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,.25);
+  }
+  .tabbar{
+    width:100%;
+    height: 60px;
+    background:#fff;
+    border-radius:0 0 26px 26px;
+    padding: 18px 22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow: 0 18px 30px -10px rgba(120,50,0,.35);
+  }
+  .tab{
+    position:relative;
+    width:44px;
+    height:44px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+  }
+  .tab .ring{
+    position:absolute;
+    inset:-3px;
+    border-radius:50%;
+    border:2px solid #f6b23e;
+    opacity:0;
+    transform:scale(.6);
+  }
+  .tab svg{
+    width:30px;
+    height:30px;
+    overflow:visible;
+  }
+  .tab .outline{
+    fill:none;
+    stroke: var(--outline);
+    stroke-width:1.6;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    opacity:1;
+    transition:opacity .25s ease;
+  }
+  .tab .filled{
+    fill: url(#fillGrad);
+    opacity:0;
+    transition:opacity .25s ease;
+  }
+  
+  /* Active state */
+  .tab.active .outline{ opacity:0; }
+  .tab.active .filled{ opacity:1; }
+  .tab.ringing .ring{
+    animation: ringPulse .55s ease forwards;
+  }
+  .tab.sweeping .filled{
+    opacity:1;
+    animation: sweepReveal 1s ease forwards;
+  }
+  .tab.sweeping .outline{
+    opacity:0;
+  }
+  
+  /* icon punch: shrink then grow back while a tab activates */
+  .tab.activating svg{
+    animation: iconPunch 1.05s ease;
+  }
+  @keyframes iconPunch{
+    0%{ transform:scale(1); }
+    35%{ transform:scale(.55); }
+    65%{ transform:scale(1.25); }
+    100%{ transform:scale(1); }
+  }
+  
+  @keyframes ringPulse{
+    0%{ opacity:0; transform:scale(.5); }
+    40%{ opacity:1; transform:scale(1.08); }
+    100%{ opacity:1; transform:scale(1); }
+  }
+  @keyframes sweepReveal{
+    0%{ clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); filter: hue-rotate(140deg) saturate(2); }
+    60%{ filter: hue-rotate(40deg) saturate(1.4); }
+    100%{ clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); filter:hue-rotate(0) saturate(1); }
+  }
